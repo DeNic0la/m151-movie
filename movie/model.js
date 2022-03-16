@@ -16,14 +16,14 @@ const Movies = sequelize.define(
     { timestamps: false }
 );
 export function getAll() {
-
+    return Movies.findAll()
 }
 export function get(id) {
-    TODO;
+    return Movies.findByPk(id)
 }
 export function remove(id) {
-    TODO;
+    Movies.findByPk(id).then(value => {value.destroy()});
 }
 export function save(movie) {
-    TODO;
+    Movies.upsert(movie)
 }
