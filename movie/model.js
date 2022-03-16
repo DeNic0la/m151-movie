@@ -1,23 +1,29 @@
-import mysql from "mysql2/promise";
-const connection = await mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "sml12345",
-    database: "movie-db",
-    port: 8008
+import { Sequelize } from "sequelize";
+const sequelize = new Sequelize({
+    dialect: "sqlite",
+    storage: "./movie.db",
 });
-await connection.connect();
-export async function getAll() {
-    const query = 'SELECT * FROM Movies';
-    const [data] = await connection.query(query);
-    return data;
+const Movies = sequelize.define(
+    "Movies",
+    {
+        title: {
+            type: Sequelize.STRING,
+        },
+        year: {
+            type: Sequelize.INTEGER,
+        },
+    },
+    { timestamps: false }
+);
+export function getAll() {
+
 }
-async function insert(movie) {
-    console.log(movie);
+export function get(id) {
+    TODO;
 }
-async function update(movie) {}
-export async function get(id) {}
-export async function remove(id) {}
+export function remove(id) {
+    TODO;
+}
 export function save(movie) {
-    insert(movie).then();
+    TODO;
 }
