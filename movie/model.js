@@ -13,11 +13,28 @@ export async function getAll() {
     return data;
 }
 async function insert(movie) {
-    console.log(movie);
+    const query = "INSERT INTO Movies (title,year) values('" + movie.title + "','"+ movie.year + "')";
+    connection.query(query);
 }
-async function update(movie) {}
-export async function get(id) {}
-export async function remove(id) {}
+async function update(movie) {
+    const sql = "UPDATE customers SET address = 'Canyon 123' WHERE address = 'Valley 345'";
+    connection.query(sql);
+}
+export async function get(id) {
+    const sql = "SELECT * FROM Movies where id ="+id;
+    connection.query(sql,function (err,result,fields) {
+        return fields
+    })
+}
+export async function remove(id) {
+    const sql = "DELETE FROM Movies WHERE id = "+id;
+    connection.query(sql);
+}
 export function save(movie) {
-    insert(movie).then();
+    if (movie.id === null){
+        insert(movie);
+    }
+    else {
+        update(movie);
+    }
 }
