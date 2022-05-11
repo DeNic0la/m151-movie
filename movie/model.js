@@ -1,13 +1,14 @@
-import { Sequelize } from "sequelize";
+import {Op, Sequelize} from "sequelize";
+
 const sequelize = new Sequelize(
     "movie-db",
     "root",
     "sml12345",
     {
-            dialect: "mysql",
-            database: "movie-db",
-            host: "127.0.0.1",
-            port: 8008,
+        dialect: "mysql",
+        database: "movie-db",
+        host: "127.0.0.1",
+        port: 1235,
     },
 );
 
@@ -20,18 +21,44 @@ const Movies = sequelize.define(
         year: {
             type: Sequelize.INTEGER,
         },
+        public: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: true,
+        },
+        user: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        }
     },
-    { timestamps: false }
+    {timestamps: false}
 );
-export function getAll() {
-    return Movies.findAll()
+
+export function getAll(uid) {
+    return Movies.findAll({
+        where: {
+            [Op.or]: [
+                {public: true},
+                {user: uid}
+            ]
+        }
+    })
 }
-export function get(id) {
-    return Movies.findByPk(id)
+
+export async function get(id, uid) {
+    let m = await Movies.findByPk(id);
+    if (m.public === true || m.user === uid) {
+        return m;
+    }
+    return null
 }
-export function remove(id) {
-    Movies.findByPk(id).then(value => {value.destroy()});
+
+export async function remove(id, uid) {
+    let m = await Movies.findByPk(id);
+    if (m.public === true || m.user === uid) {
+        await m.destroy();
+    }
 }
+
 export function save(movie) {
     Movies.upsert(movie)
 }

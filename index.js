@@ -4,6 +4,14 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { router as movieRouter } from './movie/index.js';
 const app = express();
+const session = require('express-session');
+
+app.use(session({
+    secret: 'topSecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
 app.use(express.static(`${dirname(fileURLToPath(import.meta.url))}/public`));
 app.use(morgan('common', { immediate: true }));
 app.use(express.urlencoded({ extended: false }));
