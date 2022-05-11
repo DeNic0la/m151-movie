@@ -10,7 +10,7 @@ app.use(session({
     secret: 'topSecret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
 }));
 app.use(express.static(`${dirname(fileURLToPath(import.meta.url))}/public`));
 app.use(morgan('common', { immediate: true }));

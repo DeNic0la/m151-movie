@@ -60,5 +60,6 @@ export async function remove(id, uid) {
 }
 
 export function save(movie) {
+    console.log(movie);
     Movies.upsert(movie)
 }
