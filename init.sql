@@ -3,7 +3,7 @@ USE `movie-db`;
 CREATE TABLE `Movies` (`id` int(11) NOT NULL AUTO_INCREMENT,
 `title` varchar(255) DEFAULT NULL,
 `year` int(11) DEFAULT NULL,
-`user` int(11) DEFAULT NULL,
+`user` varchar(255) DEFAULT NULL,
 `public` boolean DEFAULT true,
  PRIMARY KEY (`id`)
 )

@@ -23,7 +23,7 @@ export async function formAction(request, response) {
 export async function saveAction(request, response) {
     console.log(request.body.public);
     let movie = null;
-    if (request.body.public=== "public"){
+    if (request.body.public === "public"){
         movie = {
             id: request.body.id,
             title: request.body.title,
