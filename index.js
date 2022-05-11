@@ -1,10 +1,10 @@
 import express from 'express';
 import morgan from 'morgan';
+import session from 'express-session';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { router as movieRouter } from './movie/index.js';
 const app = express();
-const session = require('express-session');
 
 app.use(session({
     secret: 'topSecret',

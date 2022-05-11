@@ -21,11 +21,26 @@ export async function formAction(request, response) {
     response.send(body);
 }
 export async function saveAction(request, response) {
-    const movie = {
-        id: request.body.id,
-        title: request.body.title,
-        year: request.body.year,
-    };
+    console.log(request.body.public);
+    let movie = null;
+    if (request.body.public=== "public"){
+        movie = {
+            id: request.body.id,
+            title: request.body.title,
+            year: request.body.year,
+            public: true,
+        };
+    }
+    else {
+        movie = {
+            id: request.body.id,
+            title: request.body.title,
+            year: request.body.year,
+            public: false,
+            user: request.session.id,
+        };
+    }
+
     await save(movie);
     response.redirect(request.baseUrl);
 }
